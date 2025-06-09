@@ -1,4 +1,5 @@
-import { auth } from "@/auth";
+// import { auth } from "@/auth";
+import HomeFilter from "@/components/filters/HomeFilter";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import ROUTES from "@/constants/routes";
@@ -17,7 +18,7 @@ const questions = [
       {
         _id: "1",
         name: "Next.js",
-        slug: "next-js",
+        slug: "nextjs",
       },
       {
         _id: "2",
@@ -56,13 +57,19 @@ const questions = [
   },
 ];
 const Home = async ({ searchParams }: SearchParams) => {
-  const { query = "" } = await searchParams;
+  const { query = "", filter = "" } = await searchParams;
   const filteredQuestions = questions.filter((question) => {
-    return question.title.toLowerCase().includes(query.toLowerCase());
+    const matchedQuery = question.title
+      .toLowerCase()
+      .includes(query.toLowerCase());
+    const matchedFilter = filter
+      ? question.tags.some((tag) => tag.slug === filter)
+      : true;
+    return matchedQuery && matchedFilter;
   });
 
-  const session = await auth();
-  console.log(session);
+  // const session = await auth();
+  // console.log(session);
 
   return (
     <>
@@ -83,7 +90,7 @@ const Home = async ({ searchParams }: SearchParams) => {
           route="/"
         />
       </section>
-      HomeFilter
+      <HomeFilter />
       <div className="mt-10 flex w-full flex-col gap-6">
         {filteredQuestions.map((question) => (
           <Link

@@ -4,7 +4,6 @@ import { Input } from "../ui/input";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/url";
-import path from "path";
 
 interface Props {
   route: string;
