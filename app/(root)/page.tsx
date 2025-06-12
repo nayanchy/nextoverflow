@@ -4,6 +4,7 @@ import HomeFilter from "@/components/filters/HomeFilter";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import ROUTES from "@/constants/routes";
+
 import Link from "next/link";
 
 interface SearchParams {
@@ -59,6 +60,7 @@ const questions = [
     createdAt: new Date(),
   },
 ];
+
 const Home = async ({ searchParams }: SearchParams) => {
   const { query = "", filter = "" } = await searchParams;
   const filteredQuestions = questions.filter((question) => {
